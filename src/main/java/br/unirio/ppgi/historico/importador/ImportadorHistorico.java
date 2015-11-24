@@ -7,20 +7,23 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import br.unirio.ppgi.historico.modelo.Curso;
 import br.unirio.ppgi.historico.modelo.Disciplina;
 import br.unirio.ppgi.historico.modelo.DisciplinaCursada;
+import br.unirio.ppgi.historico.modelo.FabricaCursos;
 import br.unirio.ppgi.historico.modelo.Historico;
 import br.unirio.ppgi.historico.modelo.StatusCurso;
+import br.unirio.ppgi.historico.modelo.VersaoCurso;
 
 /**
- * Classe responsável por importar o conteúdo de um arquivo de histórico
+ * Classe responsavel por importar o conteudo de um arquivo de historico
  * 
  * @author marciobarros
  */
 public class ImportadorHistorico 
 {
 	/**
-	 * Importa o conteúdo de um arquivo de histórico
+	 * Importa o conteudo de um arquivo de historico
 	 */
 	public Historico importa(String conteudo) throws Exception
 	{
@@ -43,7 +46,7 @@ public class ImportadorHistorico
 	}
 
 	/**
-	 * Importa o cabeçalho do arquivo de histórico
+	 * Importa o cabecalho do arquivo de historico
 	 */
 	private void importaCabecalho(Historico historico, String conteudo) throws Exception 
 	{
@@ -51,9 +54,9 @@ public class ImportadorHistorico
 						".*Universidade Federal do Estado do Rio de Janeiro \\(UNIRIO\\) "+
 						"Data: (\\d{2}\\/\\d{2}\\/\\d{4}) " +
 						"([\\dMP]+) - .+ - .+ " +
-						"([\\dMP]+) Matrícula: " + 
+						"([\\dMP]+) Matr.cula: " + 
 						"Nome Aluno: (.+) " + 
-						"Curso: Versão: (\\d{4}\\/\\d)";
+						"Curso: Vers.o: (\\d{4}\\/\\d)";
 		
 		Pattern pattern = Pattern.compile(padrao);
 		Matcher matcher = pattern.matcher(conteudo);
@@ -83,12 +86,22 @@ public class ImportadorHistorico
 	 */
 	private void importaSemestre(Historico historico, String conteudo) throws Exception
 	{
-		String padraoCabecalhoSemestre = "(\\d)°\\. Semestre de (\\d{4}) Período:";
+		String padraoCabecalhoSemestre = "(\\d).\\. Semestre de (\\d{4}) Per.odo:";
 		Pattern patternCabecalho = Pattern.compile(padraoCabecalhoSemestre);
 		Matcher matcherCabecalho = patternCabecalho.matcher(conteudo);
 		
 		if (!matcherCabecalho.find())
 			throw new Exception("O cabecalho de um semestre nao foi encontrado.");
+		
+		Curso curso = FabricaCursos.getInstance().pegaCursoIdentificador(historico.getCurso());
+		
+		if (curso == null)
+			throw new Exception("O curso com identificador '" + historico.getCurso() + "' nao foi encontrado no sistema.");
+		
+		VersaoCurso versao = curso.pegaVersaoIdentificador(historico.getVersaoCurso());
+		
+		if (versao == null)
+			throw new Exception("O curso '" + historico.getCurso() + "' nao possui uma versao '" + historico.getVersaoCurso() + "'.");
 
 		int numero = Integer.parseInt(matcherCabecalho.group(1));
 		int ano = Integer.parseInt(matcherCabecalho.group(2));
@@ -99,7 +112,7 @@ public class ImportadorHistorico
 
 		while (matcherDisciplina.find())
 		{
-			DisciplinaCursada cursada = capturaDisciplinaCursada(numero, ano, matcherDisciplina);
+			DisciplinaCursada cursada = capturaDisciplinaCursada(numero, ano, versao, matcherDisciplina);
 			historico.adicionaDisciplinaCursada(cursada);
 		}
 	}
@@ -107,10 +120,10 @@ public class ImportadorHistorico
 	/**
 	 * Captura os dados de uma disciplina cursada dentro de um semestre
 	 */
-	private DisciplinaCursada capturaDisciplinaCursada(int numero, int ano, Matcher matcherDisciplina) throws Exception 
+	private DisciplinaCursada capturaDisciplinaCursada(int numero, int ano, VersaoCurso versao, Matcher matcherDisciplina) throws Exception 
 	{
 		String codigoDisciplina = matcherDisciplina.group(1) + matcherDisciplina.group(2);
-		Disciplina disciplina = Disciplina.get(codigoDisciplina);
+		Disciplina disciplina = versao.pegaDisciplinaCodigo(codigoDisciplina);
 		
 		if (disciplina == null)
 			throw new Exception("A disciplina com codigo '" + codigoDisciplina + "' nao foi reconhecida pelo sistema.");
@@ -145,8 +158,6 @@ public class ImportadorHistorico
 		cursada.setDisciplina(disciplina);
 		cursada.setAnoDisciplina(ano);
 		cursada.setSemestreDisciplina(numero);
-		cursada.setCreditos(creditos);
-		cursada.setCargaHoraria(cargaHoraria);
 		cursada.setNota(nota);
 		cursada.setFrequencia(frequencia);
 		cursada.setStatus(status);

@@ -42,8 +42,8 @@ public class App
 		}
 	}
 
-	public static void main(String[] args) throws Exception
-    {
+	protected static void exportaTodosHistoricos() throws Exception
+	{
 		File diretorio = new File("data/input/historico");
 
 		for (File arquivo : diretorio.listFiles()) 
@@ -54,5 +54,19 @@ public class App
 			String xml = new ExportadorHistorico().exporta(historico);
 			FileUtils.saveContent("data/output/historico/" + arquivo.getName().replace(".pdf", ".xml"), xml);
 		}
+	}
+
+	protected static void exportaHistoricosMestrado() throws Exception
+	{
+		String conteudo = converteDocumentoTexto("data/input/historico/Historicos DSc.pdf");
+		System.out.println(conteudo);
+		Historico historico = new ImportadorHistorico().importa(conteudo);
+		String xml = new ExportadorHistorico().exporta(historico);
+		FileUtils.saveContent("data/output/historico/Historicos DSc.xml", xml);
+	}
+
+	public static void main(String[] args) throws Exception
+    {
+		exportaHistoricosMestrado();
     }
 }
