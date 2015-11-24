@@ -3,25 +3,25 @@ package br.unirio.ppgi.historico.modelo;
 import lombok.Getter;
 
 /**
- * Enumeração dos possíveis status de resultado do curso
+ * Enumeração dos status de resultado de um aluno em uma disciplina
  * 
  * @author marciobarros
  */
-public enum StatusCurso 
+public enum StatusDisciplina 
 {
 	Aprovado("APV"),
 	Reprovado("REP");
 	
 	private @Getter String codigo;
 	
-	private StatusCurso(String codigo)
+	private StatusDisciplina(String codigo)
 	{
 		this.codigo = codigo;
 	}
 	
-	public static StatusCurso get(String codigo)
+	public static StatusDisciplina get(String codigo)
 	{
-		for (StatusCurso status : values())
+		for (StatusDisciplina status : values())
 			if (status.getCodigo().compareTo(codigo) == 0)
 				return status;
 		

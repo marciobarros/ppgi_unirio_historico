@@ -14,5 +14,5 @@ public @Data class DisciplinaCursada
 	private int anoDisciplina;
 	private double nota;
 	private double frequencia;
-	private StatusCurso status;
+	private StatusDisciplina status;
 }

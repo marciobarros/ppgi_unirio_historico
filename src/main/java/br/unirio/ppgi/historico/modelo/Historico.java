@@ -18,8 +18,8 @@ public class Historico
 	private @Getter @Setter DateTime dataEmissao;
 	private @Getter @Setter String matricula = "";
 	private @Getter @Setter String nome = "";
-	private @Getter @Setter String curso = "";
-	private @Getter @Setter String versaoCurso = "";
+	private @Getter @Setter Curso curso = null;
+	private @Getter @Setter VersaoCurso versao = null;
 	private List<DisciplinaCursada> disciplinasCursadas;
 
 	/**

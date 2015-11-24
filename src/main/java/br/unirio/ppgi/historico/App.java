@@ -5,7 +5,9 @@ import java.util.Arrays;
 
 import br.unirio.ppgi.historico.exportador.ExportadorHistorico;
 import br.unirio.ppgi.historico.importador.ImportadorHistorico;
+import br.unirio.ppgi.historico.importador.ImportadorListaHistoricos;
 import br.unirio.ppgi.historico.modelo.Historico;
+import br.unirio.ppgi.historico.modelo.ListaHistoricos;
 import br.unirio.ppgi.historico.suporte.FileUtils;
 
 import com.itextpdf.text.pdf.PdfReader;
@@ -48,25 +50,28 @@ public class App
 
 		for (File arquivo : diretorio.listFiles()) 
 		{
-			System.out.println("Processando " + arquivo.getName() + " ...");
-			String conteudo = converteDocumentoTexto(arquivo.getAbsolutePath());
-			Historico historico = new ImportadorHistorico().importa(conteudo);
-			String xml = new ExportadorHistorico().exporta(historico);
-			FileUtils.saveContent("data/output/historico/" + arquivo.getName().replace(".pdf", ".xml"), xml);
+			if (!arquivo.getAbsolutePath().contains("Historico"))
+			{
+				System.out.println("Processando " + arquivo.getName() + " ...");
+				String conteudo = converteDocumentoTexto(arquivo.getAbsolutePath());
+				Historico historico = new ImportadorHistorico().importa(conteudo);
+				String xml = new ExportadorHistorico().exporta(historico);
+				FileUtils.saveContent("data/output/historico/" + arquivo.getName().replace(".pdf", ".xml"), xml);
+			}
 		}
 	}
 
 	protected static void exportaHistoricosMestrado() throws Exception
 	{
 		String conteudo = converteDocumentoTexto("data/input/historico/Historicos DSc.pdf");
-		System.out.println(conteudo);
-		Historico historico = new ImportadorHistorico().importa(conteudo);
-		String xml = new ExportadorHistorico().exporta(historico);
-		FileUtils.saveContent("data/output/historico/Historicos DSc.xml", xml);
+		ListaHistoricos historicos = new ImportadorListaHistoricos().importa(conteudo);
+//		String xml = new ExportadorHistorico().exporta(historicos);
+//		FileUtils.saveContent("data/output/historico/Historicos DSc.xml", xml);
 	}
 
 	public static void main(String[] args) throws Exception
     {
 		exportaHistoricosMestrado();
+		//exportaTodosHistoricos();
     }
 }

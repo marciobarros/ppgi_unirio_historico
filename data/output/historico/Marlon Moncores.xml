@@ -10,8 +10,6 @@
       <semestre>1</semestre>
       <ano>2013</ano>
       <codigo>09P9M02</codigo>
-      <creditos>4</creditos>
-      <carga>60</carga>
       <nota>8.5</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -20,8 +18,6 @@
       <semestre>1</semestre>
       <ano>2013</ano>
       <codigo>09P9M03</codigo>
-      <creditos>4</creditos>
-      <carga>60</carga>
       <nota>8.4</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -30,8 +26,6 @@
       <semestre>1</semestre>
       <ano>2013</ano>
       <codigo>09P9M29</codigo>
-      <creditos>4</creditos>
-      <carga>60</carga>
       <nota>10.0</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -40,8 +34,6 @@
       <semestre>1</semestre>
       <ano>2013</ano>
       <codigo>09P9M31</codigo>
-      <creditos>2</creditos>
-      <carga>30</carga>
       <nota>8.5</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -50,8 +42,6 @@
       <semestre>2</semestre>
       <ano>2013</ano>
       <codigo>09P9M08</codigo>
-      <creditos>4</creditos>
-      <carga>60</carga>
       <nota>8.4</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -60,8 +50,6 @@
       <semestre>2</semestre>
       <ano>2013</ano>
       <codigo>09P9M25</codigo>
-      <creditos>4</creditos>
-      <carga>60</carga>
       <nota>9.5</nota>
       <frequencia>98.33</frequencia>
       <status>APV</status>
@@ -70,8 +58,6 @@
       <semestre>2</semestre>
       <ano>2013</ano>
       <codigo>09P9M32</codigo>
-      <creditos>2</creditos>
-      <carga>30</carga>
       <nota>8.5</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -80,8 +66,6 @@
       <semestre>2</semestre>
       <ano>2013</ano>
       <codigo>09P9M39</codigo>
-      <creditos>4</creditos>
-      <carga>60</carga>
       <nota>9.5</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -90,8 +74,6 @@
       <semestre>1</semestre>
       <ano>2014</ano>
       <codigo>09P9M23</codigo>
-      <creditos>2</creditos>
-      <carga>30</carga>
       <nota>10.0</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -100,8 +82,6 @@
       <semestre>2</semestre>
       <ano>2014</ano>
       <codigo>09P9M35</codigo>
-      <creditos>2</creditos>
-      <carga>30</carga>
       <nota>8.5</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -110,8 +90,6 @@
       <semestre>1</semestre>
       <ano>2015</ano>
       <codigo>09P9M36</codigo>
-      <creditos>2</creditos>
-      <carga>30</carga>
       <nota>9.5</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>
@@ -120,8 +98,6 @@
       <semestre>2</semestre>
       <ano>2015</ano>
       <codigo>09P9M37</codigo>
-      <creditos>1</creditos>
-      <carga>15</carga>
       <nota>10.0</nota>
       <frequencia>100.0</frequencia>
       <status>APV</status>

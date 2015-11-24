@@ -61,8 +61,8 @@ public class ExportadorHistorico
 	 */
 	private void publicaCabecalho(Historico historico, Element rootElement, Document document)
 	{
-		XmlUtils.createElement(rootElement, document, "curso", historico.getCurso());
-		XmlUtils.createElement(rootElement, document, "versao", historico.getVersaoCurso());
+		XmlUtils.createElement(rootElement, document, "curso", historico.getCurso().getId());
+		XmlUtils.createElement(rootElement, document, "versao", historico.getVersao().getId());
 		XmlUtils.createElement(rootElement, document, "emissao", historico.getDataEmissao());
 		XmlUtils.createElement(rootElement, document, "matricula", historico.getMatricula());
 		XmlUtils.createElement(rootElement, document, "nome", historico.getNome());
@@ -88,8 +88,6 @@ public class ExportadorHistorico
 		XmlUtils.createElement(xmlDisciplina, document, "semestre", disciplina.getSemestreDisciplina());
 		XmlUtils.createElement(xmlDisciplina, document, "ano", disciplina.getAnoDisciplina());
 		XmlUtils.createElement(xmlDisciplina, document, "codigo", disciplina.getDisciplina().getCodigo());
-		XmlUtils.createElement(xmlDisciplina, document, "creditos", disciplina.getCreditos());
-		XmlUtils.createElement(xmlDisciplina, document, "carga", disciplina.getCargaHoraria());
 		XmlUtils.createElement(xmlDisciplina, document, "nota", disciplina.getNota());
 		XmlUtils.createElement(xmlDisciplina, document, "frequencia", disciplina.getFrequencia());
 		XmlUtils.createElement(xmlDisciplina, document, "status", disciplina.getStatus().getCodigo());
