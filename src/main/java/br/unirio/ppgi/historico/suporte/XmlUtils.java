@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * Classe de apoio para carga de arquivos em formato XML
+ * Class that supports generating XML files
  * 
  * @author marcio.barros
  */
