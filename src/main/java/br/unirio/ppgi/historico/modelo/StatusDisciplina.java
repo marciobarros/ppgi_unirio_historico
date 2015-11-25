@@ -14,7 +14,7 @@ public enum StatusDisciplina
 	ADI("ADI"),
 	ASC("ASC"),
 	REF("REF"),
-	TRA("TRA"),
+	Trancado("TRA"),
 	Dispensado("DIS");
 	
 	private @Getter String codigo;
