@@ -17,17 +17,18 @@ import org.w3c.dom.Element;
 
 import br.unirio.ppgi.historico.modelo.DisciplinaCursada;
 import br.unirio.ppgi.historico.modelo.Historico;
+import br.unirio.ppgi.historico.modelo.ListaHistoricos;
 import br.unirio.ppgi.historico.suporte.XmlUtils;
 
 /**
- * Classe responsavel por exportar um historico para formato XML
+ * Classe responsavel por exportar historicos em formato XML
  * 
  * @author marciobarros
  */
 public class ExportadorHistorico 
 {
 	/**
-	 * Exporta os dados de um histórico
+	 * Exporta os dados de um historico
 	 */
 	public String exporta(Historico historico) throws ParserConfigurationException, TransformerException
 	{
@@ -37,12 +38,11 @@ public class ExportadorHistorico
 		Document doc = docBuilder.newDocument();
  
 		// Cria o elemento raiz
-		Element rootElement = doc.createElement("historico");
+		Element rootElement = doc.createElement("historicos");
 		doc.appendChild(rootElement);
  
 		// Publica as informacoes do historico
-		publicaCabecalho(historico, rootElement, doc);
-		publicaDisciplinasCursadas(historico, rootElement, doc);
+		publicaHistorico(historico, rootElement, doc);
 
 		// Salva as informacoes em formato Xml
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -57,23 +57,48 @@ public class ExportadorHistorico
  	}
 
 	/**
-	 * Publica as caracteristicas basicas do historico
+	 * Exporta os dados de uma lista de historicos
 	 */
-	private void publicaCabecalho(Historico historico, Element rootElement, Document document)
+	public String exporta(ListaHistoricos historicos) throws ParserConfigurationException, TransformerException
 	{
-		XmlUtils.createElement(rootElement, document, "curso", historico.getCurso().getId());
-		XmlUtils.createElement(rootElement, document, "versao", historico.getVersao().getId());
-		XmlUtils.createElement(rootElement, document, "emissao", historico.getDataEmissao());
-		XmlUtils.createElement(rootElement, document, "matricula", historico.getMatricula());
-		XmlUtils.createElement(rootElement, document, "nome", historico.getNome());
-	}
+		// Cria o documento Xml
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+		Document doc = docBuilder.newDocument();
+ 
+		// Cria o elemento raiz
+		Element rootElement = doc.createElement("historicos");
+		doc.appendChild(rootElement);
+ 
+		// Publica as informacoes do historico
+		for (Historico historico : historicos)
+			publicaHistorico(historico, rootElement, doc);
+
+		// Salva as informacoes em formato Xml
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		
+		// Salva as informacoes em formato texto 
+		StringWriter writer = new StringWriter();
+		transformer.transform(new DOMSource(doc), new StreamResult(writer));
+		return writer.getBuffer().toString();
+ 	}
 
 	/**
-	 * Publica os disciplinas cursadas
+	 * Publica os dados de um historico
 	 */
-	private void publicaDisciplinasCursadas(Historico historico, Element rootElement, Document document)
+	private void publicaHistorico(Historico historico, Element rootElement, Document document)
 	{
-		Element xmlDisciplinas = XmlUtils.createElement(rootElement, document, "disciplinas");
+		Element xmlHistorico = XmlUtils.createElement(rootElement, document, "historico");
+		XmlUtils.createElement(xmlHistorico, document, "curso", historico.getCurso().getId());
+		XmlUtils.createElement(xmlHistorico, document, "versao", historico.getVersao().getId());
+		XmlUtils.createElement(xmlHistorico, document, "emissao", historico.getDataEmissao());
+		XmlUtils.createElement(xmlHistorico, document, "matricula", historico.getMatricula());
+		XmlUtils.createElement(xmlHistorico, document, "nome", historico.getNome());
+		
+		Element xmlDisciplinas = XmlUtils.createElement(xmlHistorico, document, "disciplinas");
 
 		for (DisciplinaCursada disciplinaCursada : historico.getDisciplinasCursadas())
 			publicaDisciplinaCursada(disciplinaCursada, xmlDisciplinas, document);

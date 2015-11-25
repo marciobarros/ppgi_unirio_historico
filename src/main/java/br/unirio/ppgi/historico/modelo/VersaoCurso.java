@@ -14,6 +14,7 @@ public class VersaoCurso
 {
 	private @Getter String id;
 	private List<Disciplina> disciplinas;
+	private List<Disciplina> nucleoBasico;
 
 	/**
 	 * Inicializa a versao do curso
@@ -22,6 +23,7 @@ public class VersaoCurso
 	{
 		this.id = id;
 		this.disciplinas = new ArrayList<Disciplina>();
+		this.nucleoBasico = new ArrayList<Disciplina>();
 	}
 	
 	/**
@@ -51,5 +53,41 @@ public class VersaoCurso
 	public Iterable<Disciplina> getDisciplinas()
 	{
 		return disciplinas;
+	}
+	
+	/**
+	 * Adiciona uma disciplina no nucleo basico do curso
+	 */
+	public boolean adicionaNucleoBasico(String codigo)
+	{
+		Disciplina disciplina = pegaDisciplinaCodigo(codigo);
+		
+		if (disciplina != null)
+		{
+			nucleoBasico.add(disciplina);
+			return true;
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Verifica se uma disciplina pertence ao nucleo basico
+	 */
+	public boolean verificaNucleoBasico(String codigo) 
+	{
+		for (Disciplina disciplina : nucleoBasico)
+			if (disciplina.getCodigo().compareTo(codigo) == 0)
+				return true;
+		
+		return false;
+	}
+	
+	/**
+	 * Retorna uma enumeracao das disciplinas do nucleo basico do curso
+	 */
+	public Iterable<Disciplina> getDisciplinasNucleoBasico()
+	{
+		return nucleoBasico;
 	}
 }

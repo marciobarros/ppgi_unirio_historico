@@ -10,7 +10,9 @@ import lombok.Getter;
 public enum StatusDisciplina 
 {
 	Aprovado("APV"),
-	Reprovado("REP");
+	Reprovado("REP"),
+	ADI("ADI"),
+	Dispensado("DIS");
 	
 	private @Getter String codigo;
 	
