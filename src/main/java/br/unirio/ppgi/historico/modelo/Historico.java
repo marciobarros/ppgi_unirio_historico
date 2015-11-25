@@ -20,6 +20,7 @@ public class Historico
 	private @Getter @Setter String nome = "";
 	private @Getter @Setter Curso curso = null;
 	private @Getter @Setter VersaoCurso versao = null;
+	private @Getter @Setter StatusAluno status = null;
 	private List<DisciplinaCursada> disciplinasCursadas;
 
 	/**
@@ -60,5 +61,17 @@ public class Historico
 	public Iterable<DisciplinaCursada> getDisciplinasCursadas()
 	{
 		return disciplinasCursadas;
+	}
+
+	/**
+	 * Verifica se uma disciplina foi cursada com sucesso
+	 */
+	public boolean verificaDisciplinaCursada(String codigo) 
+	{
+		for (DisciplinaCursada disciplina : disciplinasCursadas)
+			if (disciplina.getStatus() != StatusDisciplina.Reprovado && disciplina.getDisciplina().getCodigo().compareTo(codigo) == 0)
+				return true;
+		
+		return false;
 	}
 }

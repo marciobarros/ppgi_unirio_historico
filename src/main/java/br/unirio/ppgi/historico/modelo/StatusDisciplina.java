@@ -12,6 +12,9 @@ public enum StatusDisciplina
 	Aprovado("APV"),
 	Reprovado("REP"),
 	ADI("ADI"),
+	ASC("ASC"),
+	REF("REF"),
+	TRA("TRA"),
 	Dispensado("DIS");
 	
 	private @Getter String codigo;

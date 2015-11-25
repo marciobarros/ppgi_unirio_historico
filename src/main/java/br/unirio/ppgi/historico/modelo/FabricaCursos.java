@@ -61,7 +61,7 @@ public class FabricaCursos
 		versao.adicionaDisciplina("09P9M53", "Fundamentos de Sistemas de Informacao", TipoDisciplina.Optativa, 4, 60);
 		versao.adicionaDisciplina("09P9M54", "Gestao de dados", TipoDisciplina.Optativa, 4, 60);
 		versao.adicionaDisciplina("09P9M55", "Processo de Software", TipoDisciplina.Optativa, 4, 60);
-		versao.adicionaDisciplina("09P9M08", "Metodologia Cientifica Obrigatoria", TipoDisciplina.Optativa, 4, 60);
+		versao.adicionaDisciplina("09P9M08", "Metodologia Cientifica", TipoDisciplina.Obrigatoria, 4, 60);
 		versao.adicionaDisciplina("09P9M10", "Descoberta do Conhecimento em Banco de Dados", TipoDisciplina.Optativa, 4, 60);
 		versao.adicionaDisciplina("09P9M11", "Topicos Especiais em Representacao de Conhecimento e Raciocinio I (Aplic. de Logica e Pljto a SI)", TipoDisciplina.Optativa, 4, 60);
 		versao.adicionaDisciplina("09P9M12", "Topicos Especiais em Representacao de Conhecimento e Raciocinio II (Ciencia da WEB)", TipoDisciplina.Optativa, 4, 60);

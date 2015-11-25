@@ -97,6 +97,7 @@ public class ExportadorHistorico
 		XmlUtils.createElement(xmlHistorico, document, "emissao", historico.getDataEmissao());
 		XmlUtils.createElement(xmlHistorico, document, "matricula", historico.getMatricula());
 		XmlUtils.createElement(xmlHistorico, document, "nome", historico.getNome());
+		XmlUtils.createElement(xmlHistorico, document, "status", historico.getStatus().getCodigo());
 		
 		Element xmlDisciplinas = XmlUtils.createElement(xmlHistorico, document, "disciplinas");
 
@@ -113,6 +114,7 @@ public class ExportadorHistorico
 		XmlUtils.createElement(xmlDisciplina, document, "semestre", disciplina.getSemestreDisciplina());
 		XmlUtils.createElement(xmlDisciplina, document, "ano", disciplina.getAnoDisciplina());
 		XmlUtils.createElement(xmlDisciplina, document, "codigo", disciplina.getDisciplina().getCodigo());
+		XmlUtils.createElement(xmlDisciplina, document, "nome", disciplina.getDisciplina().getNome());
 		XmlUtils.createElement(xmlDisciplina, document, "nota", disciplina.getNota());
 		XmlUtils.createElement(xmlDisciplina, document, "frequencia", disciplina.getFrequencia());
 		XmlUtils.createElement(xmlDisciplina, document, "status", disciplina.getStatus().getCodigo());

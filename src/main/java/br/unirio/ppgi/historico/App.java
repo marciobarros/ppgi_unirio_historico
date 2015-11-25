@@ -5,8 +5,13 @@ import java.io.File;
 import br.unirio.ppgi.historico.exportador.ExportadorHistorico;
 import br.unirio.ppgi.historico.importador.ImportadorHistorico;
 import br.unirio.ppgi.historico.importador.ImportadorListaHistoricos;
+import br.unirio.ppgi.historico.modelo.Disciplina;
+import br.unirio.ppgi.historico.modelo.DisciplinaCursada;
 import br.unirio.ppgi.historico.modelo.Historico;
 import br.unirio.ppgi.historico.modelo.ListaHistoricos;
+import br.unirio.ppgi.historico.modelo.StatusAluno;
+import br.unirio.ppgi.historico.modelo.StatusDisciplina;
+import br.unirio.ppgi.historico.modelo.TipoDisciplina;
 import br.unirio.ppgi.historico.suporte.DocumentUtils;
 import br.unirio.ppgi.historico.suporte.FileUtils;
 
@@ -33,8 +38,8 @@ public class App
 	{
 		String conteudo = DocumentUtils.converteDocumentoTexto("data/input/historico/Historicos Mestrado.pdf");
 		ListaHistoricos historicos = new ImportadorListaHistoricos().importa(conteudo);
-//		String xml = new ExportadorHistorico().exporta(historicos);
-//		FileUtils.saveContent("data/output/historico/Historicos Mestrado.xml", xml);
+		String xml = new ExportadorHistorico().exporta(historicos);
+		FileUtils.saveContent("data/output/historico/Historicos Mestrado.xml", xml);
 		
 		for (Historico historico : historicos)
 			verificaHistorico(historico);
@@ -42,10 +47,56 @@ public class App
 	
 	protected static void verificaHistorico(Historico historico)
 	{
-//		São 2 disciplinas de núcleo básico, 2 disciplinas obrigatória (Metodologia Científica, Estágio Docência), 
-//		Pesquisa pra Dissertação (a partir do 2o ano, uma por semestre), o resto até completar o mínimo de créditos é livre.
-
+		boolean ok = true;
 		
+		if (historico.getStatus() == StatusAluno.Jubilado)
+			return;
+		
+		int numeroNucleoBasico = 0;
+
+		for (DisciplinaCursada disciplina : historico.getDisciplinasCursadas())
+			if (historico.getVersao().verificaNucleoBasico(disciplina.getDisciplina().getCodigo()))
+				numeroNucleoBasico++;
+			
+		if (numeroNucleoBasico < 2)
+		{
+			System.out.println(historico.getMatricula() + " " + historico.getNome() + ": menos de 2 disciplinas do nucleo basico (" + numeroNucleoBasico + ")");
+			ok = false;
+		}
+
+		for (Disciplina disciplina : historico.getVersao().getDisciplinas())
+			if (disciplina.getTipo() == TipoDisciplina.Obrigatoria && !historico.verificaDisciplinaCursada(disciplina.getCodigo()))
+			{
+				System.out.println(historico.getMatricula() + " " + historico.getNome() + ": nao cursou a " + disciplina.getNome() + " (obrigatoria)");
+				ok = false;
+			}
+		
+		int numeroReprovacoes = 0;
+
+		for (DisciplinaCursada disciplina : historico.getDisciplinasCursadas())
+			if (disciplina.getStatus() == StatusDisciplina.Reprovado)
+				numeroReprovacoes++;
+		
+		if (numeroReprovacoes > 2)
+		{
+			System.out.println(historico.getMatricula() + " " + historico.getNome() + ": mais de duas reprovacoes (" + numeroReprovacoes + ")");
+			ok = false;
+		}
+		
+		int numeroCreditos = 0;
+
+		for (DisciplinaCursada disciplina : historico.getDisciplinasCursadas())
+			if (disciplina.getStatus() != StatusDisciplina.Reprovado)
+				numeroCreditos += disciplina.getDisciplina().getCreditos();
+		
+		if (numeroCreditos < 34)
+		{
+			System.out.println(historico.getMatricula() + " " + historico.getNome() + ": menos de 34 creditos (" + numeroCreditos + ")");
+			ok = false;
+		}
+
+		if (ok)
+			System.out.println(historico.getMatricula() + " " + historico.getNome() + ": OK");
 	}
 
 	public static void main(String[] args) throws Exception
