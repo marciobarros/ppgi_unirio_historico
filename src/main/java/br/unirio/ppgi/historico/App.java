@@ -5,6 +5,7 @@ import java.io.File;
 import br.unirio.ppgi.historico.exportador.ExportadorHistorico;
 import br.unirio.ppgi.historico.importador.ImportadorHistorico;
 import br.unirio.ppgi.historico.importador.ImportadorListaHistoricos;
+import br.unirio.ppgi.historico.importador.ImportadorListaHistoricosGraduacao;
 import br.unirio.ppgi.historico.modelo.Disciplina;
 import br.unirio.ppgi.historico.modelo.DisciplinaCursada;
 import br.unirio.ppgi.historico.modelo.Historico;
@@ -99,9 +100,21 @@ public class App
 			System.out.println(historico.getMatricula() + " " + historico.getNome() + ": OK");
 	}
 
+	protected static void exportaHistoricosGraduacao() throws Exception
+	{
+		String conteudo = DocumentUtils.converteDocumentoTexto("data/input/graduacao/2015.2A.pdf");
+		ListaHistoricos historicos = new ImportadorListaHistoricosGraduacao().importa(conteudo);
+		String xml = new ExportadorHistorico().exporta(historicos);
+		FileUtils.saveContent("data/output/graduacao/2015.2A.xml", xml);
+		
+		for (Historico historico : historicos)
+			verificaHistorico(historico);
+	}
+
 	public static void main(String[] args) throws Exception
     {
-		exportaHistoricosMestrado();
+		exportaHistoricosGraduacao();
+		//exportaHistoricosMestrado();
 		//exportaTodosHistoricos();
     }
 }

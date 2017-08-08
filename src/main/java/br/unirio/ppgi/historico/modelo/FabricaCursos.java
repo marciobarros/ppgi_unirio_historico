@@ -27,6 +27,7 @@ public class FabricaCursos
 	{
 		this.cursos = new ArrayList<Curso>();
 		this.cursos.add(criaCursoMestrado());
+		this.cursos.add(criaCursoGraduacao());
 	}
 	
 	/**
@@ -105,6 +106,38 @@ public class FabricaCursos
 		versao.adicionaNucleoBasico("09P9M07");
 		versao.adicionaNucleoBasico("09P9M52");
 
+		return curso;
+	}
+
+	/**
+	 * Cria o curso de Graduação do BSI/UNIRIO, com suas versoes e disciplinas
+	 */
+	private Curso criaCursoGraduacao()
+	{
+		Curso curso = new Curso("210", "Sistemas de Informação - Bacharelado");
+		VersaoCurso versao = curso.adicionaVersao("2008/1");
+		
+		versao.adicionaDisciplina("TIN0106", "DESENVOLVIMENTO DE PÁGINAS WEB", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0112", "FUNDAMENTOS DE SISTEMAS DE INFORMAÇÃO", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TME0101", "MATEMÁTICA BÁSICA", TipoDisciplina.Obrigatoria, 2, 30);
+		versao.adicionaDisciplina("TIN0108", "ORGANIZAÇÃO DE COMPUTADORES", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0107", "TÉCNICAS DE PROGRAMAÇÃO I", TipoDisciplina.Obrigatoria, 5, 90);
+		versao.adicionaDisciplina("HTD0058", "TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA ACADÊMICA", TipoDisciplina.Obrigatoria, 3, 60);
+		
+		versao.adicionaDisciplina("TME0015", "Álgebra Linear", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0150", "AMBIENTE OPERACIONAL UNIX", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0013", "Análise Empresarial e Administrativa", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("HFC0008", "COMUNICAÇÃO", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0105", "INTRODUÇÃO À LÓGICA COMPUTACIONAL", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0116", "SISTEMAS OPERACIONAIS", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0011", "TÉCNICAS DE PROGRAMAÇÃO II", TipoDisciplina.Obrigatoria, 4, 60);
+
+		versao.adicionaDisciplina("TIN0120", "BANCO DE DADOS I", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0114", "ESTRUTURAS DE DADOS I", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0110", "INTERAÇÃO HUMANO-COMPUTADOR", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0123", "REDES DE COMPUTADORES I", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TIN0141", "TÓPICOS AVANÇADOS EM REDES DE COMPUTADORES I", TipoDisciplina.Obrigatoria, 4, 60);
+		versao.adicionaDisciplina("TME0112", "CÁLCULO DIFERENCIAL E INTEGRAL I", TipoDisciplina.Obrigatoria, 4, 60);
 		return curso;
 	}
 	
